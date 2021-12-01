@@ -16,13 +16,7 @@ class Post {
         }
         return posts;
     }
-    
-    async getLikeCounts(postId)  {
 
-    }
-    
-    async getStudentModules() {
-    }
 }
 
 module.exports = {
