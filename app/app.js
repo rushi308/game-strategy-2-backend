@@ -2,7 +2,7 @@
 // Import express.js
 const express = require("express");
 const { Post } = require("./models/post");
-
+const path = require('path')
 // Create express app
 var app = express();
 
@@ -14,10 +14,9 @@ app.locals.moment = require('moment');
 // Get the functions in the db.js file to use
 const db = require('./services/db');
 
-
+app.use('/views', express.static(path.resolve(__dirname, './views')))
 app.set('view engine', 'pug');
-app.set('views', './app/views');
-
+app.set('views', './app/views');     
 // Create a route for root - /
 app.get("/", async function(req, res) {
     var post = new Post();

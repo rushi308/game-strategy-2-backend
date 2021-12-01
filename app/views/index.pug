@@ -6,16 +6,17 @@ block content
           .card
             .card-body
               .row
-                .col-md-2
-                  img.img-responsive(src='./images/user.png') 
+                .col-md-1
+                  img.img-responsive(src='views/image/user.png') 
                 .col-md-10
-                  input(class='form-control', type='text', id='whats your tips',placeholder='Whats yours tips')
+                  input(class='form-control height-65', type='text', id='whats your tips',placeholder='Whats yours tips')
       for post in posts 
         .card.mt-4
           .card-body
             .row
               .col-md-12
-                h4 
+                h4
+                  img.img-responsive(src='views/image/user.png' class='mr-3')
                   b #{post.ownerName} 
                   span shared tips for #{post.gameName}
                   p Today at #{moment(post.createdAt).format('hh:mm A')}
