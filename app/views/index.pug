@@ -10,35 +10,35 @@ block content
                   img.img-responsive(src='./images/user.png') 
                 .col-md-10
                   input(class='form-control', type='text', id='whats your tips',placeholder='Whats yours tips')
-          .card.mt-4
-            .card-body
-              .row
-                .col-md-12
-                  h4 
-                    b Mortal 
-                    span shared tips for PUBG Mobile
-                  p Todat at 5.30 PM
-                .col-md-12 
-                  p Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                .col-md-12 
-                  .row 
-                    .bg-light.d-flex.justify-content-between
-                        p 10 Like
-                        p 15 comments
-
-                .col-md-12.text-center.border-up-bottom
-                      p Like  Comments
-                .col-md-12.mt-4 
-                  .row 
-                    .col-md-6
-                      .card
-                        .card-header 
-                          b Rushi Patel 
-                          p Test comment 1
-                .col-md-12.mt-4
-                  .row 
-                    .col-md-10 
-                      input(class='form-control', type='text', id='whats your tips' ,placeholder='Write a comment.....') 
-                    .col-md-1 
-                      buuton.btn.btn-primary Comment                 
+      for post in posts 
+        .card.mt-4
+          .card-body
+            .row
+              .col-md-12
+                h4 
+                  b #{post.ownerName} 
+                  span shared tips for #{post.gameName}
+                  p Today at #{moment(post.createdAt).format('hh:mm A')}
+              .col-md-12 
+                p #{post.description}
+              .col-md-12 
+                .row 
+                  .bg-light.d-flex.justify-content-between
+                    p #{post.likeCount} Like
+                    p 15 comments
+              .col-md-12.text-center.border-up-bottom
+                    p Like  Comments
+              .col-md-12.mt-4 
+                .row 
+                  .col-md-6
+                    .card
+                      .card-header 
+                        b Rushi Patel 
+                        p Test comment 1
+              .col-md-12.mt-4
+                .row 
+                  .col-md-10 
+                    input(class='form-control', type='text', id='whats your tips' ,placeholder='Write a comment.....') 
+                  .col-md-1 
+                    buuton.btn.btn-primary Comment                 
         

@@ -1,6 +1,7 @@
 
 // Import express.js
 const express = require("express");
+const { Post } = require("./models/post");
 
 // Create express app
 var app = express();
@@ -8,6 +9,7 @@ var app = express();
 
 // Add static files location
 app.use(express.static("static"));
+app.locals.moment = require('moment');
 
 // Get the functions in the db.js file to use
 const db = require('./services/db');
@@ -17,8 +19,10 @@ app.set('view engine', 'pug');
 app.set('views', './app/views');
 
 // Create a route for root - /
-app.get("/", function(req, res) {
-    res.render("index");
+app.get("/", async function(req, res) {
+    var post = new Post();
+    const posts  = await post.getPosts();
+    res.render("index",{posts});
 });
 
 app.get("/game", function(req, res) {
