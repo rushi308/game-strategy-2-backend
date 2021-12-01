@@ -21,6 +21,15 @@ app.get("/", function(req, res) {
     res.render("index");
 });
 
+app.get("/game", function(req, res) {
+    res.render("game.pug");
+});
+app.get("/home", function(req, res) {
+    res.render("index.pug");
+});
+app.get("/profile", function(req, res) {
+    res.render("profile.pug");
+});
 
 // Create a route for testing the db
 app.get("/db_test", function(req, res) {

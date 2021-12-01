@@ -1,0 +1,34 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Game Strategy 
+  
+  style 
+            include ./css/bootstrap.min.css 
+  style 
+            include ./css/templatemo-xtra-blog.css
+
+ul.head.nav.justify-content-end
+  li.nav-item
+    a.nav-link.disabled.username Hello, Honey Patel 
+    li.nav-item
+        a.nav-link.disabled.mb-3.mx-auto.tm-site-logo
+            i.fas.fa-times.fa-2x
+
+header#tm-header.tm-header
+
+    h4.logo Game Strategy
+    ul.menu_ul 
+        li.menu Home
+        li.menu Profile 
+        li.menu Games 
+       
+  
+
+block content
+
+script 
+            include ./js/jquery.min.js
+            include ./js/templatemo-script.js
+            

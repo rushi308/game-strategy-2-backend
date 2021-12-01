@@ -1,0 +1,23 @@
+extends header
+block content
+    .container.ml-4.mt-4
+        h4 Profile
+        form
+        .form-group.row
+            label.col-sm-2.col-form-label First Name :
+            .col-sm-6
+                input#fname.form-control(type='text' placeholder='Honey')
+        .form-group.row
+            label.col-sm-2.col-form-label Last Name : 
+            .col-sm-6
+                input#lname.form-control(type='text' placeholder='Patel')
+        .form-group.row
+            label.col-sm-2.col-form-label Mobile No : 
+            .col-sm-6
+                input#mnumber.form-control(type='text' placeholder='35647859')
+        .form-group.row
+            label.col-sm-2.col-form-label(for='staticEmail') Email :
+            .col-sm-6
+                input#staticEmail.form-control-plaintext(type='text' readonly='' value='email@example.com')
+        .form-group.row 
+            buuton.col-sm-2.btn.btn-primary Update Profile
