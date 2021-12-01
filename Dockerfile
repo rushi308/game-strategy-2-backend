@@ -7,8 +7,7 @@ WORKDIR /src
 # Copy across project configuration information
 # Install application dependencies
 COPY package*.json /src/
-RUN apk add --update python make g++\
-   && rm -rf /var/cache/apk/*
+
 # Ask npm to install the dependencies
 RUN npm install -g supervisor && npm install && npm install supervisor
 
