@@ -19,13 +19,13 @@ block content
                   img.img-responsive(src='views/image/user.png' class='mr-3')
                   b #{post.ownerName} 
                   span shared tips for #{post.gameName}
-                  p Today at #{moment(post.createdAt).format('hh:mm A')}
+                p Today at #{moment(post.createdAt).format('hh:mm A')}
               .col-md-12 
                 p #{post.description}
               .col-md-12 
                 .row 
                   .bg-light.d-flex.justify-content-between
-                    p #{post.likeCount} Like
+                    p #{post.likeCount} Likes
                     p 15 comments
               .col-md-12.text-center.border-up-bottom
                     p Like  Comments

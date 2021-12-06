@@ -1,5 +1,5 @@
 # Base image to use
-FROM node:12.22-alpine
+FROM node:latest
 
 # set a working directory
 WORKDIR /src
