@@ -36,6 +36,9 @@ app.get("/home", function(req, res) {
 app.get("/profile", function(req, res) {
     res.render("profile.pug");
 });
+app.get("/login", function(req, res) {
+    res.render("login.pug");
+});
 
 // Create a route for testing the db
 app.get("/db_test", function(req, res) {
