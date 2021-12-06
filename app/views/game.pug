@@ -1,20 +1,11 @@
 extends header
 block content
-    .container
+    .container.ml-4.mt-4
         .row 
             h4 Games 
         .row
             .section-loaded
-                .square 
-                    .sqtext PUBG Mobile (10)
-                .square 
-                    .sqtext Valorent Mobile (20)
-                .square 
-                    .sqtext Call of Duty (5)
-                .square 
-                    .sqtext Counter Strike (2)
-                .square 
-                    .sqtext San Andreas (12)
-                .square 
-                    .sqtext Clash of Clain (6)
+                for game in games
+                    .square 
+                        .sqtext #{game.name} (10)
                 

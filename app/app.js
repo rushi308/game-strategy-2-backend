@@ -2,6 +2,7 @@
 // Import express.js
 const express = require("express");
 const { Post } = require("./models/post");
+const { Game } = require("./models/game");
 const path = require('path')
 // Create express app
 var app = express();
@@ -24,8 +25,10 @@ app.get("/", async function(req, res) {
     res.render("index",{posts});
 });
 
-app.get("/game", function(req, res) {
-    res.render("game.pug");
+app.get("/game", async function(req, res) {
+    var game = new Game();
+    const games  = await game.getGamesList();
+    res.render("game.pug",{games});
 });
 app.get("/home", function(req, res) {
     res.render("index.pug");

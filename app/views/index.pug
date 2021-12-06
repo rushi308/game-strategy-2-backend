@@ -14,32 +14,37 @@ block content
         .card.mt-4
           .card-body
             .row
-              .col-md-12
+              .col-md-1.text-center
+                img.img-responsive(src='views/image/user.png' class='mr-3')
+              .col-md-10
                 h4
-                  img.img-responsive(src='views/image/user.png' class='mr-3')
                   b #{post.ownerName} 
                   span shared tips for #{post.gameName}
                 p Today at #{moment(post.createdAt).format('hh:mm A')}
               .col-md-12 
                 p #{post.description}
-              .col-md-12 
+              .col-md-12.bg-light 
                 .row 
-                  .bg-light.d-flex.justify-content-between
+                  .d-flex.justify-content-between.mt-2
                     p #{post.likeCount} Likes
-                    p 15 comments
+                    p #{post.commentCount} Comments
               .col-md-12.text-center.border-up-bottom
-                    p Like  Comments
-              .col-md-12.mt-4 
-                .row 
-                  .col-md-6
-                    .card
-                      .card-header 
-                        b Rushi Patel 
-                        p Test comment 1
+                    p Like  Comment
+              .col-md-12.mt-4
+                if post.comments.length > 0
+                  for comment in post.comments
+                    .row
+                      .col-sm-5.col-md-6.col-12.pb-4
+                        .card
+                          .card-header 
+                            b #{comment.user} 
+                            p #{comment.comment}
+                else 
+                  p No comments found
               .col-md-12.mt-4
                 .row 
                   .col-md-10 
                     input(class='form-control', type='text', id='whats your tips' ,placeholder='Write a comment.....') 
-                  .col-md-1 
+                  .col-md-2
                     buuton.btn.btn-primary Comment                 
         
