@@ -7,7 +7,7 @@ const config = {
     host: process.env.MYSQL_HOST,
     port: process.env.DB_PORT,
     user: process.env.MYSQL_ROOT_USER,
-    password: process.env.MYSQL_ROOT_PASSWORD,
+    password: '',
     database: process.env.MYSQL_DATABASE,
     waitForConnections: true,
     connectionLimit: 2,

@@ -3,6 +3,7 @@
 const express = require("express");
 const { Post } = require("./models/post");
 const { Game } = require("./models/game");
+
 const path = require('path')
 // Create express app
 var app = express();
@@ -38,6 +39,9 @@ app.get("/profile", function(req, res) {
 });
 app.get("/login", function(req, res) {
     res.render("login.pug");
+});
+app.get("/forgotpwd", function(req, res) {
+    res.render("forgotpwd.pug");
 });
 
 // Create a route for testing the db
