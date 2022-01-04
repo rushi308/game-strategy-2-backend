@@ -1,0 +1,34 @@
+extends header
+block content
+        doctype html
+        head
+          link(rel='stylesheet' href='views/css/main.css')
+        .row
+           form(action='/signup' method='POST')#createAccount.form
+            h1.form__title Create Account
+            .form__message.form__message--error
+            .form__input-group
+              input#signupUsername.form__input(type='text' value='' name='username' placeholder='Username')
+              .form__input-error-message
+            .form__input-group
+              input.form__input(type='text' id='First Name' value='' name='firstName' placeholder='First Name')
+              .form__input-error-message
+            .form__input-group
+              input.form__input(type='text' id='Last Name' value='' name='lastName' placeholder='Last Name')
+              .form__input-error-message
+            .form__input-group
+              input.form__input(type='text' name='email' value='' placeholder='Email Address')
+              .form__input-error-message
+            .form__input-group
+              input.form__input(type='text' id='Mobile No' name='mobile' value='' placeholder='Mobile No +44')
+              .form__input-error-message
+            .form__input-group
+              input.form__input(type='password' name='password' value='' placeholder='Password')
+              .form__input-error-message
+            .form__input-group
+              input.form__input(type='password' name='confirmPassword' value='' placeholder='Confirm password')
+              .form__input-error-message
+            button.form__button(type='submit') Register
+            p
+              a#linkLogin.form__link(href='/login') Already have an account? Sign in
+        script(src='views/js/main.js')
