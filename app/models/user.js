@@ -12,7 +12,7 @@ class User {
     constructor(email) {
         this.email = email;
     }
-    
+
     // Get an existing user id from an email address, or return false if not found
     async getIdFromEmail()  {
         var sql = "SELECT id FROM users WHERE users.email = ?";
@@ -25,7 +25,7 @@ class User {
         else {
             return false;
         }
-    
+
     }
 
     // Add a password to an existing user
@@ -35,7 +35,7 @@ class User {
         const result = await db.query(sql, [pw, this.id]);
         return true;
     }
-    
+
     // Add a new record to the users table    
     async addUser(password) {
     
@@ -45,6 +45,13 @@ class User {
         console.log(result.insertId);
         this.id = result.insertId;
         return true;
+    }
+
+    async login(data) {
+        var sql = "SELECT password,id FROM users WHERE email = ?";
+        const result = await db.query(sql, [data.email]);
+        const match = await bcrypt.compare(data.password, result[0].password);
+        return { isAuthorized: match, user: result[0] }
     }
 
     // Test a submitted password against a stored password
@@ -65,6 +72,6 @@ class User {
 
 }
 
-module.exports  = {
+module.exports = {
     User
 }

@@ -1,12 +1,10 @@
-extends header 
 block content
         doctype html
         head
           link(rel='stylesheet' href='views/css/main.css')
         .row
-          form(action='/authenticate' method='POST')#login.form
+          form(action='/login' method='POST')#login.form
             h1.form__title GAME STRATEGY
-            .form__message.form__message--error
             .form__input-group
               input.form__input(type='email' name='email' autofocus='' placeholder='Email')
               .form__input-error-message
