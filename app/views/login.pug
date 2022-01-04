@@ -1,48 +1,19 @@
-extends header 
 block content
         doctype html
         head
           link(rel='stylesheet' href='views/css/main.css')
         .row
-          form(action='/authenticate' method='POST')#login.form
+          form(action='/login' method='POST')#login.form
             h1.form__title GAME STRATEGY
-            .form__message.form__message--error
             .form__input-group
-              input.form__input(type='text' autofocus='' placeholder='Email')
+              input.form__input(type='text' name='email' value='' placeholder='Email')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='password' autofocus='' placeholder='Password')
+              input.form__input(type='password' name='password' value='' placeholder='Password')
               .form__input-error-message
             button.form__button(type='submit') Login
             p
               a.form__link(href='forgotpwd') Forgot your password?
             p
-              a#linkCreateAccount.form__link(href='./') Don&apos;t have an account? Create account
-          form#createAccount.form.form--hidden
-            h1.form__title Create Account
-            .form__message.form__message--error
-            .form__input-group
-              input#signupUsername.form__input(type='text' autofocus='' placeholder='Username')
-              .form__input-error-message
-            .form__input-group
-              input.form__input(type='text' id='First Name' autofocus='' placeholder='First Name')
-              .form__input-error-message
-            .form__input-group
-              input.form__input(type='text' id='Last Name' autofocus='' placeholder='Last Name')
-              .form__input-error-message
-            .form__input-group
-              input.form__input(type='text' autofocus='' placeholder='Email Address')
-              .form__input-error-message
-            .form__input-group
-              input.form__input(type='text' id='Mobile No' autofocus='' placeholder='Mobile No +44')
-              .form__input-error-message
-            .form__input-group
-              input.form__input(type='password' autofocus='' placeholder='Password')
-              .form__input-error-message
-            .form__input-group
-              input.form__input(type='password' autofocus='' placeholder='Confirm password')
-              .form__input-error-message
-            button.form__button(type='submit') Continue
-            p
-              a#linkLogin.form__link(href='./') Already have an account? Sign in
+              a.form__link(href='register') Don&apos;t have an account? Create account
         script(src='views/js/main.js')

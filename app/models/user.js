@@ -12,9 +12,9 @@ class User {
     constructor(email) {
         this.email = email;
     }
-    
+
     // Get an existing user id from an email address, or return false if not found
-    async getIdFromEmail()  {
+    async getIdFromEmail() {
         var sql = "SELECT id FROM Users WHERE Users.email = ?";
         const result = await db.query(sql, [this.email]);
         // TODO LOTS OF ERROR CHECKS HERE..
@@ -25,7 +25,7 @@ class User {
         else {
             return false;
         }
-    
+
     }
 
     // Add a password to an existing user
@@ -35,16 +35,22 @@ class User {
         const result = await db.query(sql, [pw, this.id]);
         return true;
     }
-    
+
     // Add a new record to the users table    
-    async addUser(password) {
-    
-        const pw = await bcrypt.hash(password, 10);
-        var sql = "INSERT INTO Users (email, password) VALUES (? , ?)";
-        const result = await db.query(sql, [this.email, pw]);
-        console.log(result.insertId);
+    async addUser(data) {
+        data.password = await bcrypt.hash(data.password, 10);
+        var sql = `INSERT INTO Users (username, firstName, lastName, email, mobile, password) 
+        VALUES ('${data.username}', '${data.firstName}', '${data.lastName}', '${data.email}', '${data.mobile}', '${data.password}')`;
+        const result = await db.query(sql);
         this.id = result.insertId;
         return true;
+    }
+
+    async login(data) {
+        var sql = "SELECT password,id FROM users WHERE email = ?";
+        const result = await db.query(sql, [data.email]);
+        const match = await bcrypt.compare(data.password, result[0].password);
+        return { isAuthorized: match, user: result[0] }
     }
 
     // Test a submitted password against a stored password
@@ -65,6 +71,6 @@ class User {
 
 }
 
-module.exports  = {
+module.exports = {
     User
 }
