@@ -4,6 +4,8 @@ const express = require("express");
 const { Post } = require("./models/post");
 const { Game } = require("./models/game");
 const { User } = require("./models/user");
+const bodyParser = require('body-parser');
+const session = require('express-session');
 const path = require('path')
 // Create express app
 var app = express();
@@ -53,6 +55,9 @@ app.get("/home", function (req, res) {
         res.send('Please login to view this page!');
     }
 });
+app.get("/createPost", function(req, res) {
+    res.render("createPost.pug");
+});
 app.get("/profile", function (req, res) {
     if (req.session.uid) {
         res.render("profile.pug");
@@ -60,76 +65,39 @@ app.get("/profile", function (req, res) {
         res.send('Please login to view this page!');
     }
 });
-app.get("/createPost", function(req, res) {
-    res.render("createPost.pug");
+app.get("/login", function (req, res) {
+    res.render("login.pug");
 });
-
-// Register
-app.get('/register', function (req, res) {
-    res.render('register');
+app.get("/register", function (req, res) {
+    res.render("register.pug");
 });
-
-// Login
-app.get('/login', function (req, res) {
-    res.render('login');
-});
-
-app.get("/forgotpwd", function(req, res) {
+app.get("/forgotpwd", function (req, res) {
     res.render("forgotpwd.pug");
 });
 
-app.post('/auth_reg', function (req, res) {
+app.post('/signup', async function (req, res) {
     params = req.body;
-    var user = new User(params.email);
-    var uname = params.uname
-    var email = params.email
-    var fname = params.fname
-    var lname = params.lname
-    var mno = params.mno
-    var password = params.password
-    try {
-        user.getIdFromEmail().then( uId => {
-            if(uId) {
-                 // If a valid, existing user is found, set the password and redirect to the users single-student page
-                user.setUserPassword(params.password).then ( result => {
-                    res.redirect('/login');
-                });
-            }
-            else {
-                // If no existing user is found, add a new one
-                user.addUser(params.email).then( Promise => {
-                    res.send('Perhaps a page where a new user sets a programme would be good here');
-                });
-            }
-        })
-     } catch (err) {
-         console.error(`Error while adding password `, err.message);
-     }
+    var user = new User();
+    await user.addUser(params);
+    res.render("register-success.pug");
 });
 
-app.post('/authenticate', function (req, res) {
+app.post('/login', async function (req, res) {
     params = req.body;
-    var user = new User(params.email);
-    try {
-        user.getIdFromEmail().then(uId => {
-            if (uId) {
-                user.authenticate(params.password).then(match => {
-                    if (match) {
-                        res.redirect('/home');
-                    }
-                    else {
-                        // TODO improve the user journey here
-                        res.send('invalid password');
-                    }
-                });
-            }
-            else {
-                res.send('invalid email');
-            }
-        })
-    } catch (err) {
-        console.error(`Error while comparing `, err.message);
+    var user = new User();
+    const data = await user.login(params);
+    if (data.isAuthorized) {
+        req.session.uid = data.user.id;
+        req.session.loggedIn = true;
+        res.redirect('/');
+    } else {
+        res.send('Email or password is incorrect');
     }
+});
+// Logout
+app.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect('/login');
 });
 
 // Create a route for testing the db
