@@ -3,6 +3,7 @@
 const express = require("express");
 const { Post } = require("./models/post");
 const { Game } = require("./models/game");
+const { User } = require("./models/user");
 
 const path = require('path')
 // Create express app
@@ -37,11 +38,76 @@ app.get("/home", function(req, res) {
 app.get("/profile", function(req, res) {
     res.render("profile.pug");
 });
-app.get("/login", function(req, res) {
-    res.render("login.pug");
+app.get("/createPost", function(req, res) {
+    res.render("createPost.pug");
 });
+
+// Register
+app.get('/register', function (req, res) {
+    res.render('register');
+});
+
+// Login
+app.get('/login', function (req, res) {
+    res.render('login');
+});
+
 app.get("/forgotpwd", function(req, res) {
     res.render("forgotpwd.pug");
+});
+
+app.post('/auth_reg', function (req, res) {
+    params = req.body;
+    var user = new User(params.email);
+    var uname = params.uname
+    var email = params.email
+    var fname = params.fname
+    var lname = params.lname
+    var mno = params.mno
+    var password = params.password
+    try {
+        user.getIdFromEmail().then( uId => {
+            if(uId) {
+                 // If a valid, existing user is found, set the password and redirect to the users single-student page
+                user.setUserPassword(params.password).then ( result => {
+                    res.redirect('/login');
+                });
+            }
+            else {
+                // If no existing user is found, add a new one
+                user.addUser(params.email).then( Promise => {
+                    res.send('Perhaps a page where a new user sets a programme would be good here');
+                });
+            }
+        })
+     } catch (err) {
+         console.error(`Error while adding password `, err.message);
+     }
+});
+
+app.post('/authenticate', function (req, res) {
+    params = req.body;
+    var user = new User(params.email);
+    try {
+        user.getIdFromEmail().then(uId => {
+            if (uId) {
+                user.authenticate(params.password).then(match => {
+                    if (match) {
+                        res.redirect('/home');
+                    }
+                    else {
+                        // TODO improve the user journey here
+                        res.send('invalid password');
+                    }
+                });
+            }
+            else {
+                res.send('invalid email');
+            }
+        })
+    } catch (err) {
+        console.error(`Error while comparing `, err.message);
+    }
 });
 
 // Create a route for testing the db

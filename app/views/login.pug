@@ -8,39 +8,39 @@ block content
             h1.form__title GAME STRATEGY
             .form__message.form__message--error
             .form__input-group
-              input.form__input(type='text' autofocus='' placeholder='Email')
+              input.form__input(type='email' name='email' autofocus='' placeholder='Email')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='password' autofocus='' placeholder='Password')
+              input.form__input(type='password' name='password' autofocus='' placeholder='Password')
               .form__input-error-message
             button.form__button(type='submit') Login
             p
               a.form__link(href='forgotpwd') Forgot your password?
             p
               a#linkCreateAccount.form__link(href='./') Don&apos;t have an account? Create account
-          form#createAccount.form.form--hidden
+          form(action='/auth_reg' method='POST')#createAccount.form.form--hidden
             h1.form__title Create Account
             .form__message.form__message--error
             .form__input-group
-              input#signupUsername.form__input(type='text' autofocus='' placeholder='Username')
+              input#signupUsername.form__input(type='text' name='uname' autofocus='' placeholder='Username')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='text' id='First Name' autofocus='' placeholder='First Name')
+              input.form__input(type='text' id='First Name' name='fname' autofocus='' placeholder='First Name')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='text' id='Last Name' autofocus='' placeholder='Last Name')
+              input.form__input(type='text' id='Last Name' name='lname' autofocus='' placeholder='Last Name')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='text' autofocus='' placeholder='Email Address')
+              input.form__input(type='email' name='email' autofocus='' placeholder='Email Address')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='text' id='Mobile No' autofocus='' placeholder='Mobile No +44')
+              input.form__input(type='text' name= 'mno' id='Mobile No' autofocus='' placeholder='Mobile No +44')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='password' autofocus='' placeholder='Password')
+              input.form__input(type='password' name='password' autofocus='' placeholder='Password')
               .form__input-error-message
             .form__input-group
-              input.form__input(type='password' autofocus='' placeholder='Confirm password')
+              input.form__input(type='password' name='cpassword' autofocus='' placeholder='Confirm password')
               .form__input-error-message
             button.form__button(type='submit') Continue
             p

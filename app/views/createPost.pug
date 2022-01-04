@@ -1,0 +1,37 @@
+extends header
+block content
+    .container.ml-4.mt-4
+        .row 
+            h4 Create Post
+        .row
+            .container-fluid
+                .row.mt-4
+                    .col-md-12
+                        .card
+                            .card-body
+                                .row
+                                    .col-md-1
+                                        img.img-responsive(src='views/image/user.png') 
+                                    .col-md-10
+                                         h5 Honey Patel 
+                            form(action='#' method='POST')
+                                .row.ml-3.mt-4
+                                    .col-md-10 
+                                        input(class='form-control', type='text', id='title' ,placeholder='Title') 
+                                .row.ml-3.mt-4
+                                    .col-md-10 
+                                        select#selectgame.form-control
+                                            option Select Game
+                                            option PUBG Mobile
+                                            option Shooting Range
+                                            option Soduku
+                                            option Chess
+                                .row.ml-3.mt-4
+                                    .col-md-10 
+                                            textarea#tips.form-control(rows='3',placeholder='Whats your Tips,honey??')
+                                .row.ml-3.mt-4
+                                    .col-md-10                   
+                                            input#File1.form-control-file(type='file')
+                                .row.ml-3.mt-4
+                                    .col-md-10              
+                                            button.btn.btn-primary.mb-2(type='submit') Post
