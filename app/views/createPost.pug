@@ -14,24 +14,20 @@ block content
                                         img.img-responsive(src='views/image/user.png') 
                                     .col-md-10
                                          h5 Honey Patel 
-                            form(action='#' method='POST')
+                        form(action='/addpost' method='POST')
                                 .row.ml-3.mt-4
                                     .col-md-10 
-                                        input(class='form-control', type='text', id='title' ,placeholder='Title') 
+                                        input(class='form-control',name='title', type='text', id='title' ,placeholder='Title') 
                                 .row.ml-3.mt-4
                                     .col-md-10 
-                                        select#selectgame.form-control
-                                            option Select Game
-                                            option PUBG Mobile
-                                            option Shooting Range
-                                            option Soduku
-                                            option Chess
+                                        select#selectgame.form-control(name='gameId')
+                                            option Select game
+                                            for game in games
+                                                option(value="#{game.id}") #{game.name}
+                                            
                                 .row.ml-3.mt-4
                                     .col-md-10 
-                                            textarea#tips.form-control(rows='3',placeholder='Whats your Tips,honey??')
-                                .row.ml-3.mt-4
-                                    .col-md-10                   
-                                            input#File1.form-control-file(type='file')
+                                            textarea#tips.form-control(rows='3',name='tips',placeholder='Whats your Tips,honey??')
                                 .row.ml-3.mt-4
                                     .col-md-10              
-                                            button.btn.btn-primary.mb-2(type='submit') Post
+                                        button.btn.btn-primary.mb-2(type='submit') Post

@@ -21,6 +21,14 @@ class Post {
         return posts;
     }
 
+    // Add a new record to the Post table    
+    async addPost(data) {
+        var sql = `INSERT INTO posts(userId, gameId, title, description) VALUES ('3','5','${data.title}','${data.tips}')`;
+        const result = await db.query(sql);
+        this.id = result.insertId;
+        return true;
+    }
+
 }
 
 module.exports = {
