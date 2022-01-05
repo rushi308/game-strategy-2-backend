@@ -9,7 +9,7 @@ block content
                 .col-md-1
                   img.img-responsive(src='views/image/user.png') 
                 .col-md-10
-                  a.btn.btn-light.stretched-link(href='createPost') what's your new tips or technique......
+                  a.btn.btn-light.stretched-link.post-create-link(href='createPost') What's your new tips or technique......
       for post in posts 
         .card.mt-4
           .card-body
@@ -20,7 +20,7 @@ block content
                 h4
                   b #{post.ownerName} 
                   span shared tips for #{post.gameName}
-                p Today at #{moment(post.createdAt).format('hh:mm A')}
+                p #{moment(post.createdAt).format('DD-MM-YYYY')} at #{moment(post.createdAt).format('hh:mm A')}
               .col-md-12 
                 p #{post.description}
               .col-md-12.bg-light 

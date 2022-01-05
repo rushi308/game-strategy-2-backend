@@ -113,3 +113,8 @@ body {
 .form__link:hover {
     text-decoration: underline;
 }
+.post-create-link{
+    width: 100%;
+    text-align: left;
+    padding-bottom: 30px;
+}

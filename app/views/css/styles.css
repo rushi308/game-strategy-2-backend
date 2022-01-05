@@ -11351,4 +11351,9 @@ body
 .height-65{
   height: 65px;
 }
+.post-create-link{
+  width: 100% !important;
+  text-align: left !important;
+  padding-bottom: 30px !important;
+}
 

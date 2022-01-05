@@ -9,7 +9,7 @@ class Post {
     async getPosts() {
         var sql = `SELECT p.*,CONCAT(u.firstName , ' ' , u.lastName) as ownerName,g.name as gameName FROM posts p
         JOIN users u ON u.id = p.userId
-        JOIN games g ON g.id = p.gameId`;
+        JOIN games g ON g.id = p.gameId ORDER BY p.id DESC`;
         const posts = await db.query(sql);
         for (const p of posts) {
             var like = new Like(p.id);
@@ -21,9 +21,9 @@ class Post {
         return posts;
     }
 
-    // Add a new record to the Post table    
-    async addPost(data) {
-        var sql = `INSERT INTO posts(userId, gameId, title, description) VALUES ('3','5','${data.title}','${data.tips}')`;
+    async insertPost(data) {
+        var sql = `INSERT INTO posts (userId, gameId, title, description) 
+        VALUES ('${data.userId}', '${data.gameId}', '${data.title}', '${data.description}')`;
         const result = await db.query(sql);
         this.id = result.insertId;
         return true;
