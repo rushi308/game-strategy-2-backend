@@ -13,7 +13,7 @@ app.use(session({
     secret: 'gamestrategyroehampton',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false, maxAge: 30 * 24 * 60 * 60 * 1000 }
 }));
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -55,8 +55,27 @@ app.get("/home", function (req, res) {
         res.send('Please login to view this page!');
     }
 });
-app.get("/createPost", function(req, res) {
-    res.render("createPost.pug");
+app.get("/createPost", async function (req, res) {
+    if (req.session.uid) {
+        var game = new Game();
+        const games = await game.getGamesList();
+        res.render("createPost.pug", { games });
+    } else {
+        res.send('Please login to view this page!');
+    }
+});
+app.post("/insertPost", async function (req, res) {
+    if (req.session.uid) {
+        params = req.body;
+        var post = new Post();
+        params.userId = req.session.uid;
+        const postInsert = await post.insertPost(params);
+        if (postInsert) {
+            res.redirect('/');
+        }
+    } else {
+        res.send('Please login to view this page!');
+    }
 });
 app.get("/profile", function (req, res) {
     if (req.session.uid) {
