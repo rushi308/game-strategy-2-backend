@@ -80,7 +80,9 @@ app.post("/insertPost", async function (req, res) {
 
 app.get("/profile", function (req, res) {
     if (req.session.uid) {
-        res.render("profile.pug");
+
+        const useId = req.session;
+        res.render("profile.pug", { useId });
     } else {
         res.send('Please login to view this page!');
     }
@@ -88,6 +90,10 @@ app.get("/profile", function (req, res) {
 app.get("/login", function (req, res) {
     res.render("login.pug");
 });
+app.get("/loginf", function (req, res) {
+    res.render("loginf.pug");
+});
+
 app.get("/register", function (req, res) {
     res.render("register.pug");
 });

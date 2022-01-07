@@ -1,9 +1,16 @@
-extends header
-block content
-        doctype html
-        head
-          link(rel='stylesheet' href='views/css/main.css')
-        .row
+doctype html
+head
+  title Game Strategy
+  // Core theme CSS (includes Bootstrap)
+  style 
+          include ./css/bootstrap.min.css 
+  style 
+          include ./css/styles.css
+          include  ./css/main.css
+
+.row.mt-4
+    .col-md-5
+      .container
            form(action='/signup' method='POST')#createAccount.form
             h1.form__title Create Account
             .form__message.form__message--error
@@ -31,4 +38,4 @@ block content
             button.form__button(type='submit') Register
             p
               a#linkLogin.form__link(href='/login') Already have an account? Sign in
-        script(src='views/js/main.js')
+
