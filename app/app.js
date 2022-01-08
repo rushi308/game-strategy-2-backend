@@ -78,15 +78,27 @@ app.post("/insertPost", async function (req, res) {
     }
 });
 
-app.get("/profile", function (req, res) {
+app.get("/profile", async function (req, res) {
     if (req.session.uid) {
-
-        const useId = req.session;
-        res.render("profile.pug", { useId });
+        var userId = req.session.uid
+        res.render("profile.pug", { userId });
     } else {
         res.send('Please login to view this page!');
     }
 });
+app.post("/changeProfile", async function (req, res) {
+    if (req.session.uid) {
+        params = req.body;
+        var user = new User();
+        const profileInsert = await user.changeProfile(params);
+        if (profileInsert) {
+            res.redirect('/');
+        }
+    } else {
+        res.send('Please login to view this page!');
+    }
+});
+
 app.get("/login", function (req, res) {
     res.render("login.pug");
 });
@@ -113,7 +125,7 @@ app.post('/login', async function (req, res) {
     var user = new User();
     const data = await user.login(params);
     if (data.isAuthorized) {
-        req.session.uid = data.user.id;
+        req.session.uid = data.user;
         req.session.loggedIn = true;
         res.redirect('/');
     } else {

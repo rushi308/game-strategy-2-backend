@@ -2,22 +2,22 @@ extends header
 block content
     .container.ml-4.mt-4
         h4 Profile 
-        form
+        form(action='/changeProfile' method='POST')
         .form-group.row
             label.col-sm-2.col-form-label First Name :
             .col-sm-6
-                input#fname.form-control(type='text' placeholder='Honey')
+                input#fname.form-control(type='text' name='fname' value=userId.firstName)
         .form-group.row
             label.col-sm-2.col-form-label Last Name :
             .col-sm-6
-                input#lname.form-control(type='text' placeholder='Patel')
+                input#lname.form-control(type='text' name='lname' value=userId.lastName)
         .form-group.row
             label.col-sm-2.col-form-label Mobile No : 
             .col-sm-6
-                input#mnumber.form-control(type='text' placeholder='35647859')
+                input#mnumber.form-control(type='text' name='mno' value=userId.mobile)
         .form-group.row
             label.col-sm-2.col-form-label(for='staticEmail') Email :
             .col-sm-6
-                input#staticEmail.form-control(type='text' placeholder='email@example.com')
+                input#staticEmail.form-control(type='text' name='email' placeholder=userId.email readonly='')
         .form-group.row 
-            buuton.col-sm-2.btn.btn-primary Update Profile 
+            button.col-sm-2.btn.btn-primary.form__button(type='submit') Update Profile 
