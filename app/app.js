@@ -68,7 +68,7 @@ app.post("/insertPost", async function (req, res) {
     if (req.session.uid) {
         params = req.body;
         var post = new Post();
-        params.userId = req.session.uid;
+        params.userId = req.session.uid.id;
         const postInsert = await post.insertPost(params);
         if (postInsert) {
             res.redirect('/');
@@ -105,9 +105,6 @@ app.post("/changeProfile", async function (req, res) {
 
 app.get("/login", function (req, res) {
     res.render("login.pug");
-});
-app.get("/loginf", function (req, res) {
-    res.render("loginf.pug");
 });
 
 app.get("/register", function (req, res) {
