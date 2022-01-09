@@ -45,9 +45,17 @@ class User {
         this.id = result.insertId;
         return true;
     }
+    async changeProfile(data) {
+        var sql = `INSERT INTO users (firstName,lastName,mobile) 
+        VALUES ('${data.fname}', '${data.lname}', '${data.mno}') WHERE email = ?`;
+        const result = await db.query(sql, [data.email]);
+        this.id = result.insertId;
+        return true;
+    }
+
 
     async login(data) {
-        var sql = "SELECT password,id FROM users WHERE email = ?";
+        var sql = "SELECT * FROM users WHERE email = ?";
         const result = await db.query(sql, [data.email]);
         const match = await bcrypt.compare(data.password, result[0].password);
         return { isAuthorized: match, user: result[0] }
