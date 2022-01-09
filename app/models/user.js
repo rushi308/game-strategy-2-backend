@@ -45,12 +45,12 @@ class User {
         this.id = result.insertId;
         return true;
     }
-    async changeProfile(data) {
-        var sql = `INSERT INTO users (firstName,lastName,mobile) 
-        VALUES ('${data.fname}', '${data.lname}', '${data.mno}') WHERE email = ?`;
-        const result = await db.query(sql, [data.email]);
-        this.id = result.insertId;
-        return true;
+
+    async changeProfile(data, id) {
+        var sql = `UPDATE users SET firstName= '${data.firstName}',lastName ='${data.lastName}' ,mobile ='${data.mobile}'
+        WHERE id = ${id}`;
+        const result = await db.query(sql);
+        return result;
     }
 
 
@@ -74,6 +74,12 @@ class User {
         else {
             return false;
         }
+    }
+
+    async getUserDetail(id) {
+        var sql = `SELECT * FROM Users WHERE id=${id}`
+        const result = await db.query(sql);
+        return result ? result[0] : {};
     }
 
 

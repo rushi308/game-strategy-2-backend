@@ -80,17 +80,21 @@ app.post("/insertPost", async function (req, res) {
 
 app.get("/profile", async function (req, res) {
     if (req.session.uid) {
-        var userId = req.session.uid
-        res.render("profile.pug", { userId });
+        var userId = req.session.uid.id;
+        const user = new User();
+        const userDetail = await user.getUserDetail(userId);
+        res.render("profile.pug", { userDetail });
     } else {
         res.send('Please login to view this page!');
     }
 });
+
 app.post("/changeProfile", async function (req, res) {
     if (req.session.uid) {
+        console.log(req.session.uid.id)
         params = req.body;
         var user = new User();
-        const profileInsert = await user.changeProfile(params);
+        const profileInsert = await user.changeProfile(params,req.session.uid.id);
         if (profileInsert) {
             res.redirect('/');
         }

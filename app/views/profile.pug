@@ -3,21 +3,21 @@ block content
     .container.ml-4.mt-4
         h4 Profile 
         form(action='/changeProfile' method='POST')
-        .form-group.row
-            label.col-sm-2.col-form-label First Name :
-            .col-sm-6
-                input#fname.form-control(type='text' name='fname' value=userId.firstName)
-        .form-group.row
-            label.col-sm-2.col-form-label Last Name :
-            .col-sm-6
-                input#lname.form-control(type='text' name='lname' value=userId.lastName)
-        .form-group.row
-            label.col-sm-2.col-form-label Mobile No : 
-            .col-sm-6
-                input#mnumber.form-control(type='text' name='mno' value=userId.mobile)
-        .form-group.row
-            label.col-sm-2.col-form-label(for='staticEmail') Email :
-            .col-sm-6
-                input#staticEmail.form-control(type='text' name='email' placeholder=userId.email readonly='')
-        .form-group.row 
-            button.col-sm-2.btn.btn-primary.form__button(type='submit') Update Profile 
+            .form-group.row
+                label.col-sm-2.col-form-label First Name :
+                .col-sm-6
+                    input#fname.form-control(type='text' name='firstName' value=userDetail.firstName)
+            .form-group.row
+                label.col-sm-2.col-form-label Last Name :
+                .col-sm-6
+                    input#lname.form-control(type='text' name='lastName' value=userDetail.lastName)
+            .form-group.row
+                label.col-sm-2.col-form-label Mobile No : 
+                .col-sm-6
+                    input#mnumber.form-control(type='text' name='mobile' value=userDetail.mobile)
+            .form-group.row
+                label.col-sm-2.col-form-label(for='staticEmail') Email :
+                .col-sm-6
+                    input#staticEmail.form-control(type='text' name='email' placeholder=userDetail.email readonly='')
+            .form-group.row 
+                button.col-sm-2.btn.btn-primary.form__button(type='submit') Update Profile 
