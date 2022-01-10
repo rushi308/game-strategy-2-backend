@@ -21,6 +21,13 @@ class Comment {
         const comments =  await db.query(sql);
         return comments.length > 0  ? comments : [];
     }
+
+    async commentOnPost(data,userId){
+        var sql = `INSERT INTO postComments(postId,userId,comment) 
+        VALUES (${data.postId},${userId},'${data.comment}')`;
+        const result =  await db.query(sql);
+        return result;
+    }
     
 }
 

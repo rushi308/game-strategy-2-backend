@@ -42,9 +42,12 @@ block content
                 else 
                   p No comments found
               .col-md-12.mt-4
-                .row 
-                  .col-md-10 
-                    input(class='form-control', type='text', id='whats your tips' ,placeholder='Write a comment.....') 
-                  .col-md-2
-                    buuton.btn.btn-primary Comment                 
+                form(action='/comment' method='POST')
+                  .row
+                    .col-md-10.d-none 
+                      input(class='form-control' name="postId" value=post.id type='text', id='whats your tips' ,placeholder='Write a comment.....') 
+                    .col-md-10 
+                      input(class='form-control' name="comment" value='' type='text', id='whats your tips' ,placeholder='Write a comment.....') 
+                    .col-md-2
+                      button.btn.btn-primary(type='submit') Comment                 
         

@@ -4,6 +4,8 @@ const express = require("express");
 const { Post } = require("./models/post");
 const { Game } = require("./models/game");
 const { User } = require("./models/user");
+const { Like } = require("./models/like");
+const { Comment } = require("./models/comment");
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path')
@@ -32,7 +34,9 @@ app.get("/", async function (req, res) {
     if (req.session.uid) {
         var post = new Post();
         const posts = await post.getPosts();
-        res.render("index", { posts });
+        var user = new User();
+        const userDetail = await user.getUserDetail(req.session.uid.id);
+        res.render("index", { posts, userDetail });
     } else {
         res.send('Please login to view this page!');
     }
@@ -43,7 +47,9 @@ app.get("/game", async function (req, res) {
     if (req.session.uid) {
         var game = new Game();
         const games = await game.getGamesList();
-        res.render("game.pug", { games });
+        var user = new User();
+        const userDetail = await user.getUserDetail(req.session.uid.id);
+        res.render("game.pug", { games, userDetail });
     } else {
         res.send('Please login to view this page!');
     }
@@ -59,7 +65,9 @@ app.get("/createPost", async function (req, res) {
     if (req.session.uid) {
         var game = new Game();
         const games = await game.getGamesList();
-        res.render("createPost.pug", { games });
+        var user = new User();
+        const userDetail = await user.getUserDetail(req.session.uid.id);
+        res.render("createPost.pug", { games,userDetail });
     } else {
         res.send('Please login to view this page!');
     }
@@ -133,6 +141,30 @@ app.post('/login', async function (req, res) {
         res.send('Email or password is incorrect');
     }
 });
+
+app.post("/like", async function (req, res) {
+    if (req.session.uid) {
+        params = req.body;
+        var like = new Like();
+        const liked = await like.hitLikeOnPost(params,req.session.uid.id);
+        res.redirect('/');
+    } else {
+        res.send('Please login to view this page!');
+    }
+});
+
+app.post("/comment", async function (req, res) {
+    if (req.session.uid) {
+        params = req.body;
+        console.log(params)
+        var comment = new Comment();
+        const comments = await comment.commentOnPost(params,req.session.uid.id);
+        res.redirect('/');
+    } else {
+        res.send('Please login to view this page!');
+    }
+});
+
 // Logout
 app.get('/logout', function (req, res) {
     req.session.destroy();
@@ -165,6 +197,7 @@ app.get("/hello/:name", function (req, res) {
     //  Retrieve the 'name' parameter and use it in a dynamically generated page
     res.send("Hello " + req.params.name);
 });
+
 
 // Start server on port 3000
 app.listen(3000, function () {
