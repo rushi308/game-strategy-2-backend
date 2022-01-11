@@ -1,14 +1,20 @@
-extends header 
-block content
-        doctype html
-        head
-          link(rel='stylesheet' href='views/css/main.css')
-        .row
-          form(action='/authenticate' method='POST')#login.form
-            h1.form__title GAME STRATEGY
-            .form__message.form__message--error
-            .form__input-group
-              input.form__input(type='text' autofocus='' placeholder='Email')
-              .form__input-error-message
-            button.form__button(type='submit') send link your email
+doctype html
+head
+  title Game Strategy
+  // Core theme CSS (includes Bootstrap)
+  style 
+          include ./css/bootstrap.min.css 
+  style 
+          include ./css/styles.css
+          include  ./css/main.css
+.row.mt-4
+    .col-md-5
+      .container
+        form(action='/authenticate' method='POST')#login.form
+          h1.form__title GAME STRATEGY
+          .form__message.form__message--error
+          .form__input-group
+            input.form__input(type='text' autofocus='' placeholder='Email')
+            .form__input-error-message
+          button.form__button(type='submit') Send link your email
             

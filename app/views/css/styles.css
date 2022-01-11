@@ -11356,4 +11356,10 @@ body
   text-align: left !important;
   padding-bottom: 30px !important;
 }
-
+.cursor-pointer{
+  cursor: pointer;
+}
+.game-link{
+  color: #fff;
+  text-decoration: none;
+}

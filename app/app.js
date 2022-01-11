@@ -38,9 +38,8 @@ app.get("/", async function (req, res) {
         const userDetail = await user.getUserDetail(req.session.uid.id);
         res.render("index", { posts, userDetail });
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin");
     }
-    res.end();
 });
 
 app.get("/game", async function (req, res) {
@@ -51,14 +50,14 @@ app.get("/game", async function (req, res) {
         const userDetail = await user.getUserDetail(req.session.uid.id);
         res.render("game.pug", { games, userDetail });
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin.pug");
     }
 });
 app.get("/home", function (req, res) {
     if (req.session.uid) {
         res.render("index.pug");
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin");
     }
 });
 app.get("/createPost", async function (req, res) {
@@ -69,7 +68,7 @@ app.get("/createPost", async function (req, res) {
         const userDetail = await user.getUserDetail(req.session.uid.id);
         res.render("createPost.pug", { games,userDetail });
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin");
     }
 });
 app.post("/insertPost", async function (req, res) {
@@ -82,7 +81,7 @@ app.post("/insertPost", async function (req, res) {
             res.redirect('/');
         }
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin");
     }
 });
 
@@ -93,7 +92,7 @@ app.get("/profile", async function (req, res) {
         const userDetail = await user.getUserDetail(userId);
         res.render("profile.pug", { userDetail });
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin");
     }
 });
 
@@ -107,7 +106,7 @@ app.post("/changeProfile", async function (req, res) {
             res.redirect('/');
         }
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin");
     }
 });
 
@@ -156,12 +155,24 @@ app.post("/like", async function (req, res) {
 app.post("/comment", async function (req, res) {
     if (req.session.uid) {
         params = req.body;
-        console.log(params)
         var comment = new Comment();
-        const comments = await comment.commentOnPost(params,req.session.uid.id);
+        await comment.commentOnPost(params,req.session.uid.id);
         res.redirect('/');
     } else {
-        res.send('Please login to view this page!');
+        res.render("requireLogin");
+    }
+});
+
+app.get("/gameByPost/:gameId", async function (req, res) {
+    if (req.session.uid) {
+        const gameId = req.params.gameId;
+        var post = new Post();
+        const posts = await post.getPostByGame(gameId);
+        var user = new User();
+        const userDetail = await user.getUserDetail(req.session.uid.id);
+        res.render("gamePosts", { posts, userDetail });
+    } else {
+        res.render("requireLogin");
     }
 });
 

@@ -6,6 +6,7 @@ block content
         .row
             .section-loaded
                 for game in games
-                    .square 
-                        .sqtext #{game.name} (#{game.postCount})
+                    .square.cursor-pointer
+                        .sqtext
+                            a.game-link(href=`gameByPost/${game.id}`) #{game.name} (#{game.postCount})
                 
