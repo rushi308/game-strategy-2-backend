@@ -45,6 +45,19 @@ class Post {
         return posts;
     }
 
+    async updatePost(data) {
+        var sql = `UPDATE posts SET title = '${data.title}', gameId=${data.gameId},
+        description= '${data.description}' WHERE id=${+data.id}`;
+        const result = await db.query(sql);
+        return result;
+    }
+
+    async getPostDetail(id) {
+        var sql = `SELECT * FROM posts WHERE id = ${id}`;
+        const result = await db.query(sql);
+        return result ? result[0] : {};
+    }
+
 }
 
 module.exports = {

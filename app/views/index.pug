@@ -21,6 +21,9 @@ block content
                   b #{post.ownerName} 
                   span shared tips for #{post.gameName}
                 p #{moment(post.createdAt).format('DD-MM-YYYY')} at #{moment(post.createdAt).format('hh:mm A')}
+              .col-md-1 
+                if userDetail.id === post.userId 
+                    a.btn.btn-primary.mb-2(href='updatePost/' + post.id) Edit
               .col-md-12 
                 p #{post.description}
               .col-md-12.bg-light 

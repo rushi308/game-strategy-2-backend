@@ -1,0 +1,34 @@
+extends header
+block content
+    .container.ml-4.mt-4
+        .row 
+            h4 Update Post
+        .row
+            .container-fluid
+                .row.mt-4
+                    .col-md-12
+                        .card
+                            form(action='/editPost' method='POST')
+                                .row.ml-3.mt-4.d-none
+                                    .col-md-10 
+                                        input(class='form-control' name="id" value= postDetail.id type='text') 
+                                .row.ml-3.mt-4
+                                    .col-md-10 
+                                        input(class='form-control' name='title' value = postDetail.title type='text' id='title' placeholder='Title') 
+                                .row.ml-3.mt-4
+                                    .col-md-10 
+                                        select(name='gameId' value = '' )#selectgame.form-control
+                                            option Select Game
+                                            for game in games
+                                                option(value=game.id  selected=(postDetail.gameId == game.id)) #{game.name}
+                                .row.ml-3.mt-4
+                                    .col-md-10 
+                                            textarea#tips.form-control(rows='3' placeholder='Whats your tips...??' name='description' value = postDetail.description)
+                                                if postDetail.description
+                                                | #{postDetail.description}
+                                .row.ml-3.mt-4
+                                    .col-md-10                   
+                                            input#File1.form-control-file(type='file')
+                                .row.ml-3.mt-4
+                                    .col-md-10              
+                                        button.btn.btn-primary.mb-2(type='submit') Update Post

@@ -66,7 +66,24 @@ app.get("/createPost", async function (req, res) {
         const games = await game.getGamesList();
         var user = new User();
         const userDetail = await user.getUserDetail(req.session.uid.id);
-        res.render("createPost.pug", { games,userDetail });
+        res.render("createPost.pug", { games, userDetail });
+    } else {
+        res.render("requireLogin");
+    }
+});
+app.get("/updatePost/:id", async function (req, res) {
+    if (req.session.uid) {
+        var game = new Game();
+        const games = await game.getGamesList();
+        var user = new User();
+        const userDetail = await user.getUserDetail(req.session.uid.id);
+        var post = new Post();
+        let postDetail = {}
+        if(req.params.id !== 'bootstrap.min.css.map') {
+            postDetail = await post.getPostDetail(req.params.id);
+        }
+        console.log(postDetail)
+        res.render("editPost.pug", { games, userDetail, postDetail });
     } else {
         res.render("requireLogin");
     }
@@ -78,6 +95,20 @@ app.post("/insertPost", async function (req, res) {
         params.userId = req.session.uid.id;
         const postInsert = await post.insertPost(params);
         if (postInsert) {
+            res.redirect('/');
+        }
+    } else {
+        res.render("requireLogin");
+    }
+});
+
+app.post("/editPost", async function (req, res) {
+    if (req.session.uid) {
+        params = req.body;
+        var post = new Post();
+        console.log(params)
+        const postUpdated = await post.updatePost(params);
+        if (postUpdated) {
             res.redirect('/');
         }
     } else {
@@ -101,7 +132,7 @@ app.post("/changeProfile", async function (req, res) {
         console.log(req.session.uid.id)
         params = req.body;
         var user = new User();
-        const profileInsert = await user.changeProfile(params,req.session.uid.id);
+        const profileInsert = await user.changeProfile(params, req.session.uid.id);
         if (profileInsert) {
             res.redirect('/');
         }
@@ -145,7 +176,7 @@ app.post("/like", async function (req, res) {
     if (req.session.uid) {
         params = req.body;
         var like = new Like();
-        const liked = await like.hitLikeOnPost(params,req.session.uid.id);
+        const liked = await like.hitLikeOnPost(params, req.session.uid.id);
         res.redirect('/');
     } else {
         res.send('Please login to view this page!');
@@ -156,7 +187,7 @@ app.post("/comment", async function (req, res) {
     if (req.session.uid) {
         params = req.body;
         var comment = new Comment();
-        await comment.commentOnPost(params,req.session.uid.id);
+        await comment.commentOnPost(params, req.session.uid.id);
         res.redirect('/');
     } else {
         res.render("requireLogin");
