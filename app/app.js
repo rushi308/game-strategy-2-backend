@@ -82,7 +82,6 @@ app.get("/updatePost/:id", async function (req, res) {
         if(req.params.id !== 'bootstrap.min.css.map') {
             postDetail = await post.getPostDetail(req.params.id);
         }
-        console.log(postDetail)
         res.render("editPost.pug", { games, userDetail, postDetail });
     } else {
         res.render("requireLogin");
@@ -106,7 +105,6 @@ app.post("/editPost", async function (req, res) {
     if (req.session.uid) {
         params = req.body;
         var post = new Post();
-        console.log(params)
         const postUpdated = await post.updatePost(params);
         if (postUpdated) {
             res.redirect('/');
@@ -129,7 +127,6 @@ app.get("/profile", async function (req, res) {
 
 app.post("/changeProfile", async function (req, res) {
     if (req.session.uid) {
-        console.log(req.session.uid.id)
         params = req.body;
         var user = new User();
         const profileInsert = await user.changeProfile(params, req.session.uid.id);
